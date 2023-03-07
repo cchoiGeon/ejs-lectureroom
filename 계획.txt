@@ -1,0 +1,368 @@
+강의실
+
+일단 A동 2층만 먼저 실행시킨다.
+MYSQL을 연동시켜서
+database 이름은 LectureRoom 
+
+table 이름은 Aclass ? 
+
+table 내용은 건물 호수 사용여부 datetime으로 한다
+
+CREATE TABLE Aclass(
+number TEXT NOT NULL, -> 강의실 호수
+status TEXT NOT NULL, -> 강의실 상태 즉, 사용 가능 사용 중 예약 중 등 
+time now() NULL, -> 입실할 때 시간 넣기
+userid TEXT NULL, -> 사용하는 사용자 아이디 넣어서 중복 사용 불가능하게 만들기
+PRIMARY KEY(number)
+);
+
+INSERT INTO Aclass(number,status)VALUES('201','사용 가능')
+INSERT INTO Aclass(number,status)VALUES('202','사용 가능')
+INSERT INTO Aclass(number,status)VALUES('203','사용 가능')
+
+db.query('UPDATE Aclass SET status=?, time=?, userid=? WHERE numeber=?',[],function(err,result){
+
+})
+
+먼저 2층 강의실 201~3호까지 INSERT INTO문을 통해 기본 값을 넣어준다 이 때 기본 값은 사용 가능으로 해준다
+201호 입실 클릭시 ->
+if(post.201호 === '201'){ -> post로 submit값을 먼저 가져와 준 다음 몇 호를 선택했는지 확인한다
+  db.query('SELECT * FORM Aclass',function(err,result){
+    if(result[0].status === '사용 가능'){
+      result[0].status === '사용 중'
+    }elseif(result[0].status === '사용 중'){
+      알람으로 사용 중인 강의실입니다 !
+    }else{
+      이때는 예약 중인 강의실이라는 표시와 함께 언제 들어왔고 몇 분 뒤에 예약 시간이 끝나는지도 알려준다
+      예약 시간은 1시간 이내에 입실해야한다.(이 기능은 나중에)
+    }
+})
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+신고
+
+일단 201~9호처럼 묶어서 먼저 실행시켜본다 -> 201~9 ~ 701~9호까지 구현
+
+database 이름은 report
+
+table 이름은 reportclass
+
+CREATE TABLE Aclass(
+number TEXT NOT NULL, -> 강의실 호수
+content TEXT NOT NULL, -> 강의실 신고 내용  
+time now() NULL, -> 신고한 시간
+PRIMARY KEY(number)
+);
+
+
+////////////////////////////////////////////////////////////
+
+database-> LectureRoom 
+TABLE -> Afloor2,Afloor3...Afloor5 / userinformation
+
+
+CREATE TABLE Afloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Afloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Afloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+CREATE TABLE Bfloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Bfloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Bfloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+CREATE TABLE Cfloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Cfloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Cfloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+CREATE TABLE Dfloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Dfloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Dfloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+CREATE TABLE Efloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Efloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Efloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+CREATE TABLE Sanyungfloor2(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Sanyungfloor3(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Sanyungfloor4(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Sanyungfloor5(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Sanyungfloor6(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+CREATE TABLE Sanyungfloor7(
+  number INT(3) NOT NULL,
+  status TEXT NOT NULL,
+  time DATETIME NULL,
+  now_userid INT(10) NULL,
+  past_userid INT(10) NULL,
+  PRIMARY KEY(number)
+);
+
+
+
+CREATE TABLE register(
+  num INT(5) NOT NULL AUTO_INCREMENT,
+  name TEXT NOT NULL,
+  id INT(10) NOT NULL,
+  password TEXT NOT NULL,
+  usetrue TEXT NULL,
+  student_card_root TEXT NULL,
+  allow_login TEXT NULL,
+  PRIMARY KEY(num)
+);
+
+CREATE TABLE report(
+  num INT(5) NOT NULL AUTO_INCREMENT,
+  building TEXT NOT NULL,
+  floornum TEXT NOT NULL,
+  content TEXT NOT NULL,
+  time DATETIME NULL,
+  report_userid TEXT NULL,
+  be_reported_userid TEXT NULL,
+  PRIMARY KEY(num)
+);
+
+기본 세팅
+INSERT INTO Afloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Afloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Afloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Afloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Afloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Afloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Afloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Afloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Afloor4(number,status) VALUES('403','사용가능');
+
+INSERT INTO Bfloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Bfloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Bfloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Bfloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Bfloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Bfloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Bfloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Bfloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Bfloor4(number,status) VALUES('403','사용가능');
+
+INSERT INTO Cfloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Cfloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Cfloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Cfloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Cfloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Cfloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Cfloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Cfloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Cfloor4(number,status) VALUES('403','사용가능');
+
+INSERT INTO Dfloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Dfloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Dfloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Dfloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Dfloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Dfloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Dfloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Dfloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Dfloor4(number,status) VALUES('403','사용가능');
+
+INSERT INTO Efloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Efloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Efloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Efloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Efloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Efloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Efloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Efloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Efloor4(number,status) VALUES('403','사용가능');
+
+INSERT INTO Sanyungfloor2(number,status) VALUES('201','사용가능');
+INSERT INTO Sanyungfloor2(number,status) VALUES('202','사용가능');
+INSERT INTO Sanyungfloor2(number,status) VALUES('203','사용가능');
+INSERT INTO Sanyungfloor3(number,status) VALUES('301','사용가능');
+INSERT INTO Sanyungfloor3(number,status) VALUES('302','사용가능');
+INSERT INTO Sanyungfloor3(number,status) VALUES('303','사용가능');
+INSERT INTO Sanyungfloor4(number,status) VALUES('401','사용가능');
+INSERT INTO Sanyungfloor4(number,status) VALUES('402','사용가능');
+INSERT INTO Sanyungfloor4(number,status) VALUES('403','사용가능');
+INSERT INTO Sanyungfloor5(number,status) VALUES('501','사용가능');
+INSERT INTO Sanyungfloor5(number,status) VALUES('502','사용가능');
+INSERT INTO Sanyungfloor5(number,status) VALUES('503','사용가능');
+INSERT INTO Sanyungfloor6(number,status) VALUES('601','사용가능');
+INSERT INTO Sanyungfloor6(number,status) VALUES('602','사용가능');
+INSERT INTO Sanyungfloor6(number,status) VALUES('603','사용가능');
+INSERT INTO Sanyungfloor7(number,status) VALUES('701','사용가능');
+INSERT INTO Sanyungfloor7(number,status) VALUES('702','사용가능');
+INSERT INTO Sanyungfloor7(number,status) VALUES('703','사용가능');
+
+
+현재 문제점과 계획
+
+1. 로그인을 안 했을 때 튕기게 하는 코드에서 오류가 계속 뜸
+
+2. 아이디를 2개 이용해서 하나는 201호 하나는 202호를 입실하려고 하는데 계속 오류가 뜸 
+
+3. ?
+
+
+//
+
+전에 썻던 유저랑 현재 사용 하는 유저 두개 나눠서 Afloor2에 저장
+
+//
+
+
+신고할 때 
+사용 중이면 -> now_userid 
+사용가능이면 -> past_userid
+저장해두기
+
+///
+alert 한국어 오류남 -> 고쳐야 됨 
+///
+db에 사진 저장하는 거 알아야 됨 
+///
+예약후 1시간 뒤에 자동 적으로 퇴실하게 만들기 -> register에 뭘 넣어서 어떻게 하지 ?
