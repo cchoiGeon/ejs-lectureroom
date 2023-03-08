@@ -40,6 +40,12 @@ for(let i=0; i<campuslist.length; i++){
     if(!req.session.login){
       return res.redirect('/login')
     }
+    // for(let k=2; k < 5; k++){
+    //   db.query(`SELECT * FROM ${campuslist[i]}floor${k}`,function(err,floor){
+    //     console.log(floor)
+    //     여기서 잘 생각해보자 
+    //   });
+    // }
     db.query(`SELECT * FROM ${campuslist[i]}floor2`,function(err,floor2){
       db.query(`SELECT * FROM ${campuslist[i]}floor3`,function(err,floor3){
         db.query(`SELECT * FROM ${campuslist[i]}floor4`,function(err,floor4){

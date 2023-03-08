@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
   },
 })
 const upload = multer({storage: storage})
-
+const campuslist = ['A','B','C','D','E','Sanyung']
 let login;
 
 //set 메서드
@@ -67,7 +67,101 @@ server.get("/report",(req,res)=>{
   }
   res.render('report',{'login':login})
 })
-
+for(let i=0; i<campuslist.length; i++){
+  server.get(`/report_${campuslist[i]}`,(req,res)=>{
+    if(campuslist[i]==='Sanyung'){
+      return res.render('reportwriteSanyung',{'login':login,'campuslist':campuslist[i]})
+    }
+    return res.render('reportwrite',{'login':login,'campuslist':campuslist[i]})
+  })
+}
+for(let i=0; i<campuslist.length; i++){
+  server.post(`/report_${campuslist[i]}/process`,(req,res) => {
+    let post = req.body;
+    let reportcontent = post.reportcontent;
+    let selectroom = post.selectroom;
+    if(parseInt(selectroom)===201 || parseInt(selectroom)===202 || parseInt(selectroom)===203 || parseInt(selectroom)===204 || parseInt(selectroom)===205 || parseInt(selectroom)===206 ){
+      db.query(`SELECT * FROM ${campuslist[i]}floor2 WHERE number=?`,[parseInt(selectroom)],function(err,status){
+        if(status[0].now_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
+          function(err,report){
+            res.write(`<script>alert('SUCCESS!')</script>`);
+            return res.write("<script>window.location='/'</script>");
+          });
+        }else if(!status[0].now_userid && status[0].past_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
+          function(err,report){
+            res.write("<script>alert('SUCCESS!')</script>");
+            return res.write("<script>window.location='/'</script>");
+          }); 
+        }else{
+          res.write("<script>alert('Check again!')</script>");
+          return res.write("<script>window.location='/'</script>");
+        }
+      });
+    }
+    else if(parseInt(selectroom)===301 || parseInt(selectroom)===302 || parseInt(selectroom)===303 || parseInt(selectroom)===304 || parseInt(selectroom)===305 || parseInt(selectroom)===306){
+      db.query(`SELECT * FROM ${campuslist[i]}floor3 WHERE number=?`,[parseInt(selectroom)],function(err,status){
+        if(status[0].now_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
+          function(err,report){
+            res.write(`<script>alert('SUCCESS!')</script>`);
+            return res.write("<script>window.location='/'</script>");
+          });
+        }else if(!status[0].now_userid && status[0].past_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
+          function(err,report){
+            res.write("<script>alert('SUCCESS!')</script>");
+            return res.write("<script>window.location='/'</script>");
+          }); 
+        }else{
+          res.write("<script>alert('ERROR!')</script>");
+          return res.write("<script>window.location='/'</script>");
+        }
+      });
+    }
+    else if(parseInt(selectroom)===401 || parseInt(selectroom)===402 || parseInt(selectroom)===403 || parseInt(selectroom)===404 || parseInt(selectroom)===405 || parseInt(selectroom)===406){
+      db.query(`SELECT * FROM ${campuslist[i]}floor4 WHERE number=?`,[parseInt(selectroom)],function(err,status){
+        if(status[0].now_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
+          function(err,report){
+            res.write(`<script>alert('SUCCESS!')</script>`);
+            return res.write("<script>window.location='/'</script>");
+          });
+        }else if(!status[0].now_userid && status[0].past_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
+          function(err,report){
+            res.write("<script>alert('SUCCESS!')</script>");
+            return res.write("<script>window.location='/'</script>");
+          }); 
+        }else{
+          res.write("<script>alert('ERROR!')</script>");
+          return res.write("<script>window.location='/'</script>");
+        }
+      });
+    }
+    else if(parseInt(selectroom)===501 || parseInt(selectroom)===502 || parseInt(selectroom)===503 || parseInt(selectroom)===504 || parseInt(selectroom)===505 || parseInt(selectroom)===506){
+      db.query(`SELECT * FROM ${campuslist[i]}floor5 WHERE number=?`,[parseInt(selectroom)],function(err,status){
+        if(status[0].now_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
+          function(err,report){
+            res.write(`<script>alert('SUCCESS!')</script>`);
+            return res.write("<script>window.location='/'</script>");
+          });
+        }else if(!status[0].now_userid && status[0].past_userid){
+          db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
+          function(err,report){
+            res.write("<script>alert('SUCCESS!')</script>");
+            return res.write("<script>window.location='/'</script>");
+          }); 
+        }else{
+          res.write("<script>alert('ERROR!')</script>");
+          return res.write("<script>window.location='/'</script>");
+        }
+      });
+    }
+  });
+}
 // post 필요 없음
 server.get("/how_use",(req,res)=>{
   loginbox(req,res)
