@@ -27,6 +27,8 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage})
 
+let login;
+
 //set 메서드
 server.set('view engine', 'ejs');
 server.set('html',require('ejs').renderFile);
@@ -42,25 +44,38 @@ server.use(session({
   saveUninitialized: true,
   store: new FileStore()
 }))
-
 server.use('/select',Router);
 
+function loginbox(req,res){
+  if(req.session.login){
+    login = `<li><a class="dropdown-item" href="/logout_process">로그아웃</a></li>`;
+  }else{
+    login = `<li><a class="dropdown-item" href="/login">로그인</a></li>
+      <li><a class="dropdown-item" href="/register">회원가입</a></li>`;
+  }
+}
 
 server.get("/",(req,res)=>{
-  res.render('index')
+  loginbox(req,res)
+  res.render('index',{'login':login})
 })
 
-//
 server.get("/report",(req,res)=>{
-  res.render('report')
+  loginbox(req,res)
+  if(!req.session.login){
+    return res.redirect('/login')
+  }
+  res.render('report',{'login':login})
 })
 
 // post 필요 없음
 server.get("/how_use",(req,res)=>{
-  res.render('how_use')
+  loginbox(req,res)
+  res.render('how_use',{'login':login})
 })
 server.get("/map",(req,res)=>{
-  res.render('map')
+  loginbox(req,res)
+  res.render('map',{'login':login})
 })
 //
 server.get("/login",(req,res)=>{
@@ -132,7 +147,7 @@ server.post('/register2/process',upload.single('card'),(req,res) => {
   }
   db.query('UPDATE register SET student_card_root=? WHERE id=?',[req.file.filename,req.session.registerId],function(err,result){
     console.log(req.file.filename,req.session.registerId)
-    return res.redirect('/how_use');
+    return res.redirect('/login');
   })
 });
 server.get("/logout_process",(req,res) => {

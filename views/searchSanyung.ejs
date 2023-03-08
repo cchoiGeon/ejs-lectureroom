@@ -88,16 +88,62 @@
                 </div>
                 <div id="layoutSidenav_content">
                     <main>
+                      <form action='/select/<%=campuslist%>/process' method="post">
                         <div class="container-fluid px-4">
-                            <div class="text-center">
-                                <img src="images/TUK.JPG" class="rounded" alt="...">
-                            </div>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <button type="submit" class="btn btn-light" name="floor2" value="true">
+                                        <div class="fw-bold">산학융합관</div>
+                                        </button>
+                                        <div>
+                                        2층
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill" id=`<%=campuslist%>-2`><%=floor2%></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <button type="submit" class="btn btn-light" name="floor3" value="true">
+                                        <div class="fw-bold">산학융합관</div>
+                                        </button>
+                                        <div>
+                                        3층
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill" id=`<%=campuslist%>-3`><%=floor3%></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <button type="submit" class="btn btn-light" name="floor4" value="true">
+                                        <div class="fw-bold">산학융합관</div>
+                                        </button>
+                                        <div>
+                                        4층
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill" id=`<%=campuslist%>-4`><%=floor4%></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <button type="submit" class="btn btn-light" name="floor5" value="true">
+                                        <div class="fw-bold">산학융합관</div>
+                                        </button>
+                                        <div>
+                                        5층
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill" id=`<%=campuslist%>-5`><%=floor5%></span>
+                                </li>
+                            </ol>  
                         </div>
+                      </form>
                     </main>
                 </div>
             </div>
         </body>
         <script src="js/script.js"></script>
+        <script src="js/script2.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
