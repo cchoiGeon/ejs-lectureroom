@@ -161,6 +161,9 @@ for(let i=0; i<campuslist.length; i++){
 
 for(let i=0; i<campuslist.length; i++){
  router.get(`/${campuslist[i]}_floor2`,(req,res)=>{
+  if(!req.session.login){
+    return res.redirect('/login')
+  }
     db.query(`SELECT * FROM ${campuslist[i]}floor2`,function(err,floor2){
       if(err){
         console.log(err)
@@ -273,6 +276,9 @@ for(let i=0; i<campuslist.length; i++){
 }
 for(let i=0; i<campuslist.length; i++){
   router.get(`/${campuslist[i]}_floor3`,(req,res)=>{
+    if(!req.session.login){
+      return res.redirect('/login')
+    }
     db.query(`SELECT * FROM ${campuslist[i]}floor3`,function(err,floor3){
       if(err){
         console.log(err)
@@ -384,6 +390,9 @@ for(let i=0; i<campuslist.length; i++){
 }
 for(let i=0; i<campuslist.length; i++){
   router.get(`/${campuslist[i]}_floor4`,(req,res)=>{
+    if(!req.session.login){
+      return res.redirect('/login')
+    }
     db.query(`SELECT * FROM ${campuslist[i]}floor4`,function(err,floor4){
       if(err){
         console.log(err)
@@ -495,6 +504,9 @@ for(let i=0; i<campuslist.length; i++){
 }
 for(let i=0; i<campuslist.length; i++){
   router.get(`/${campuslist[i]}_floor5`,(req,res)=>{
+    if(!req.session.login){
+      return res.redirect('/login')
+    }
     db.query(`SELECT * FROM ${campuslist[i]}floor5`,function(err,floor5){
       if(err){
         console.log(err)
