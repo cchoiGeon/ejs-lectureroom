@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const server = express();
 const multer = require("multer");
 const path = require("path");
-const Router = require('./Router/router')
+const Router_select_campus = require('./Router/select_campus')
 const db = mysql.createConnection({
   host : 'localhost',
   user : 'root',
@@ -44,7 +44,7 @@ server.use(session({
   saveUninitialized: true,
   store: new FileStore()
 }))
-server.use('/select',Router);
+server.use('/select',Router_select_campus);
 
 function loginbox(req,res){
   if(req.session.login){
@@ -76,7 +76,7 @@ for(let i=0; i<campuslist.length; i++){
   })
 }
 for(let i=0; i<campuslist.length; i++){
-  server.post(`/report_${campuslist[i]}/process`,(req,res) => {
+  server.post(`/report_${campuslist[i]}/process`,(req,res)=>{
     let post = req.body;
     let reportcontent = post.reportcontent;
     let selectroom = post.selectroom;
@@ -191,7 +191,8 @@ server.post("/login/process",(req,res)=>{
           req.session.login = true;
           req.session.registerId = null;
           req.session.save(function(){
-          res.redirect('/');
+            res.write(`<script>alert('Hi ${result[i].name}')</script>`);
+            return res.write("<script>window.location='/'</script>");
           });
           return false;
         }else{
@@ -234,7 +235,7 @@ server.post("/register/process",(req,res)=>{
 server.get("/register2",(req,res)=>{
   res.render('register2')
 })
-server.post('/register2/process',upload.single('card'),(req,res) => {
+server.post('/register2/process',upload.single('card'),(req,res)=>{
   if(!req.file){
     console.log('다시 해주세용')
     return res.redirect('/register2')
@@ -244,10 +245,80 @@ server.post('/register2/process',upload.single('card'),(req,res) => {
     return res.redirect('/login');
   })
 });
-server.get("/logout_process",(req,res) => {
+server.get("/logout_process",(req,res)=>{
   req.session.destroy(function(err){
     res.redirect('/');
   })
 });
 
+server.get("/adminbro",(req,res)=>{
+  res.render("adminbro")
+})
+server.post("/adminbro/process",(req,res)=>{
+  let post = req.body;
+  if(post.report){
+    return res.redirect('/adminbro_report')
+  }else{
+    return res.redirect('/adminbro_user')
+  }
+})
+server.get("/adminbro_report",(req,res)=>{
+  db.query('SELECT * FROM report',function(err,report){
+    let table= `<table>
+    <tr>
+      <td>건물 이름</td>
+      <td>층</td>
+      <td>신고 내용</td>
+      <td>시간</td>
+      <td>신고한 유저 아이디</td>
+      <td>신고 당한 유저 아이디</td>
+    </tr>`
+    for(let i=0; i<report.length; i++){
+      table += `
+      <tr>
+        <td>${report[i].building}</td>
+        <td>${report[i].floornum}</td>
+        <td>${report[i].content}</td>
+        <td>${report[i].time}</td>
+        <td>${report[i].report_userid}</td>
+        <td>${report[i].be_reported_userid}</td>
+      </tr>`
+    }
+    table+= `</table>`
+    return res.render('adminbro_report',{'table':table})
+  })
+})
+server.get("/adminbro_user",(req,res)=>{
+  db.query('SELECT * FROM register',function(err,register){
+    let table=`<table>
+    <tr>
+      <td>회원 이름</td>
+      <td>회원 아이디</td>
+      <td>강의실 사용 여부</td>
+      <td>학생증</td>
+      <td>학생증 확인 여부</td>
+      <td>허락 여부</td>
+    </tr>`
+    for(let i=0; i<register.length; i++){
+      table+=`
+      <tr>
+        <td>${register[i].name}</td>
+        <td>${register[i].id}</td>
+        <td>${register[i].usetrue}</td>
+        <td><a href="/adminbro_img/${register[i].id}">학생증 보러 가기</a></td>
+        <td>${register[i].allow_login}</td>
+        <td><button type="submit" name="allow" value="true">확인</button></td>
+      </tr>`
+    }
+    table+=``
+    return res.render('adminbro_report',{'table':table})
+  })
+})
+server.get("/adminbro_img/:id",(req,res)=>{
+  let user_id = parseInt(path.parse(req.params.id).base);
+  db.query('SELECT * FROM register WHERE id=?',[user_id],function(err,result){
+    let imgroot = result[0].student_card_root
+    return res.render('adminbro_user_img',{'imgroot':imgroot})
+  })
+})
 server.listen(3000);
