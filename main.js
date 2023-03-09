@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const server = express();
 const multer = require("multer");
 const path = require("path");
-const Router_select_campus = require('./Router/select_campus')
+const Router_select_campus = require('./Router/select_campus');
+const f = require('session-file-store');
 const db = mysql.createConnection({
   host : 'localhost',
   user : 'root',
@@ -85,18 +86,15 @@ for(let i=0; i<campuslist.length; i++){
         if(status[0].now_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
           function(err,report){
-            res.write(`<script>alert('SUCCESS!')</script>`);
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           });
         }else if(!status[0].now_userid && status[0].past_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
           function(err,report){
-            res.write("<script>alert('SUCCESS!')</script>");
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           }); 
         }else{
-          res.write("<script>alert('Check again!')</script>");
-          return res.write("<script>window.location='/'</script>");
+          return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('잘못 입력하셨습니다'); window.location='/report_${campuslist[i]}'</script></html>`);
         }
       });
     }
@@ -105,18 +103,15 @@ for(let i=0; i<campuslist.length; i++){
         if(status[0].now_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
           function(err,report){
-            res.write(`<script>alert('SUCCESS!')</script>`);
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           });
         }else if(!status[0].now_userid && status[0].past_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
           function(err,report){
-            res.write("<script>alert('SUCCESS!')</script>");
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           }); 
         }else{
-          res.write("<script>alert('ERROR!')</script>");
-          return res.write("<script>window.location='/'</script>");
+          return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('잘못 입력하셨습니다'); window.location='/report_${campuslist[i]}'</script></html>`);
         }
       });
     }
@@ -125,18 +120,15 @@ for(let i=0; i<campuslist.length; i++){
         if(status[0].now_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
           function(err,report){
-            res.write(`<script>alert('SUCCESS!')</script>`);
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           });
         }else if(!status[0].now_userid && status[0].past_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
           function(err,report){
-            res.write("<script>alert('SUCCESS!')</script>");
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           }); 
         }else{
-          res.write("<script>alert('ERROR!')</script>");
-          return res.write("<script>window.location='/'</script>");
+          return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('잘못 입력하셨습니다'); window.location='/report_${campuslist[i]}'</script></html>`);
         }
       });
     }
@@ -145,18 +137,15 @@ for(let i=0; i<campuslist.length; i++){
         if(status[0].now_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].now_userid],
           function(err,report){
-            res.write(`<script>alert('SUCCESS!')</script>`);
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           });
         }else if(!status[0].now_userid && status[0].past_userid){
           db.query('INSERT INTO report(building,floornum,content,time,report_userid,be_reported_userid) VALUES(?,?,?,NOW(),?,?)',[campuslist[i],selectroom,reportcontent,req.session.user_id,status[0].past_userid],
           function(err,report){
-            res.write("<script>alert('SUCCESS!')</script>");
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('신고가 완료 되셨습니다'); window.location='/'</script></html>`);
           }); 
         }else{
-          res.write("<script>alert('ERROR!')</script>");
-          return res.write("<script>window.location='/'</script>");
+          return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('잘못 입력하셨습니다'); window.location='/report_${campuslist[i]}'</script></html>`);
         }
       });
     }
@@ -191,18 +180,15 @@ server.post("/login/process",(req,res)=>{
           req.session.login = true;
           req.session.registerId = null;
           req.session.save(function(){
-            res.write(`<script>alert('Hi ${result[i].name}')</script>`);
-            return res.write("<script>window.location='/'</script>");
+            return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('Hi ${result[i].name}'); window.location='/'</script></html>`);
           });
           return false;
         }else{
-          res.write("<script>alert('Sorry please wait reviewing your student card.')</script>");
-          return res.write("<script>window.location='/login'</script>");
+          return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('학생증 확인이 완료 될 때까지 기다려주세요'); window.location='/login'</script></html>`);
         }
       }
     }
-    res.redirect('/login');
-    return false;
+    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('아이디나 비밀번호를 다시 확인해주세요'); window.location='/login'</script></html>`);
   });
 })
 
@@ -213,10 +199,10 @@ server.post("/register/process",(req,res)=>{
   let post = req.body;
   db.query('SELECT * FROM register',function(err,register){
     for(var i = 0; i < register.length; i++){
-      if(register[i].id === post.id){
-        console.log('사용 중인 아이디입니다')
-        return res.redirect('/register');
+      if(register[i].id === parseInt(post.id)){
+        return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 아이디입니다'); window.location='/register'</script></html>`)
       }
+      return false;
     }
     if(9<post.id.length<=10 && post.password.length > 10){
       db.query('INSERT INTO register(name,id,password,usetrue) VALUES(?,?,?,?)',[post.name,post.id,post.password,'사용가능'],function(err,result){
@@ -226,8 +212,7 @@ server.post("/register/process",(req,res)=>{
         });
       });
     }else{
-      console.log('다시 입력해주세요')
-      return res.redirect('/register');
+      return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('아이디와 비밀번호를 다시 한 번 확인해주세요'); window.location='/register'</script></html>`)
     }
   });
 })
@@ -237,8 +222,7 @@ server.get("/register2",(req,res)=>{
 })
 server.post('/register2/process',upload.single('card'),(req,res)=>{
   if(!req.file){
-    console.log('다시 해주세용')
-    return res.redirect('/register2')
+    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('학생증 사진을 올려주세요'); window.location='/register2'</script></html>`)
   }
   db.query('UPDATE register SET student_card_root=? WHERE id=?',[req.file.filename,req.session.registerId],function(err,result){
     console.log(req.file.filename,req.session.registerId)
@@ -247,12 +231,15 @@ server.post('/register2/process',upload.single('card'),(req,res)=>{
 });
 server.get("/logout_process",(req,res)=>{
   req.session.destroy(function(err){
-    res.redirect('/');
+    res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('로그아웃이 완료됐습니다.'); window.location='/'</script></html>`)
   })
 });
 
 server.get("/adminbro",(req,res)=>{
-  res.render("adminbro")
+  if(req.session.user_id === 0){
+    return res.render("adminbro")
+  }
+  res.redirect('/')
 })
 server.post("/adminbro/process",(req,res)=>{
   let post = req.body;
@@ -263,62 +250,88 @@ server.post("/adminbro/process",(req,res)=>{
   }
 })
 server.get("/adminbro_report",(req,res)=>{
-  db.query('SELECT * FROM report',function(err,report){
-    let table= `<table>
-    <tr>
-      <td>건물 이름</td>
-      <td>층</td>
-      <td>신고 내용</td>
-      <td>시간</td>
-      <td>신고한 유저 아이디</td>
-      <td>신고 당한 유저 아이디</td>
-    </tr>`
-    for(let i=0; i<report.length; i++){
-      table += `
+  if(req.session.user_id === 0){
+    db.query('SELECT * FROM report',function(err,report){
+      let table= `<table>
       <tr>
-        <td>${report[i].building}</td>
-        <td>${report[i].floornum}</td>
-        <td>${report[i].content}</td>
-        <td>${report[i].time}</td>
-        <td>${report[i].report_userid}</td>
-        <td>${report[i].be_reported_userid}</td>
+        <td>건물 이름</td>
+        <td>층</td>
+        <td>신고 내용</td>
+        <td>시간</td>
+        <td>신고한 유저 아이디</td>
+        <td>신고 당한 유저 아이디</td>
       </tr>`
-    }
-    table+= `</table>`
-    return res.render('adminbro_report',{'table':table})
-  })
+      for(let i=0; i<report.length; i++){
+        table += `
+        <tr>
+          <td>${report[i].building}</td>
+          <td>${report[i].floornum}</td>
+          <td>${report[i].content}</td>
+          <td>${report[i].time}</td>
+          <td>${report[i].report_userid}</td>
+          <td>${report[i].be_reported_userid}</td>
+        </tr>`
+      }
+      table+= `</table>`
+      return res.render('adminbro_report',{'table':table})
+    })
+    return false;
+  }
+  res.redirect('/')
+})
+server.post("/adminbro_report_warning/process",(req,res)=>{
+  let post = req.body;
+  let reported_id = parseInt(post.reported_id)
+  console.log('경고 줄 아이디 : ',reported_id)
+  //register에 경고 열을 추가시켜서 3회 경고시 ~ 로 처리하게 끔 한다
 })
 server.get("/adminbro_user",(req,res)=>{
-  db.query('SELECT * FROM register',function(err,register){
-    let table=`<table>
-    <tr>
-      <td>회원 이름</td>
-      <td>회원 아이디</td>
-      <td>강의실 사용 여부</td>
-      <td>학생증</td>
-      <td>학생증 확인 여부</td>
-      <td>허락 여부</td>
-    </tr>`
-    for(let i=0; i<register.length; i++){
-      table+=`
+  if(req.session.user_id === 0){
+    db.query('SELECT * FROM register',function(err,register){
+      let table=`<table>
       <tr>
-        <td>${register[i].name}</td>
-        <td>${register[i].id}</td>
-        <td>${register[i].usetrue}</td>
-        <td><a href="/adminbro_img/${register[i].id}">학생증 보러 가기</a></td>
-        <td>${register[i].allow_login}</td>
-        <td><button type="submit" name="allow" value="true">확인</button></td>
+        <td>회원 이름</td>
+        <td>회원 아이디</td>
+        <td>강의실 사용 여부</td>
+        <td>학생증</td>
+        <td>학생증 확인 여부</td>
+        <td>허락 여부</td>
       </tr>`
-    }
-    table+=``
-    return res.render('adminbro_report',{'table':table})
-  })
+      for(let i=0; i<register.length; i++){
+        table+=`
+        <tr>
+          <td>${register[i].name}</td>
+          <td>${register[i].id}</td>
+          <td>${register[i].usetrue}</td>
+          <td><a href="/adminbro_img/${register[i].id}">학생증 보러 가기</a></td>
+          <td>${register[i].allow_login}</td>
+          <td><button type="submit" name="allow" value="${register[i].id}">확인</button></td>
+        </tr>`
+      }
+      table+=``
+      return res.render('adminbro_user',{'table':table})
+    })
+    return false;
+  }
+  res.redirect('/')
+})
+server.post("/adminbro_user/process",(req,res)=>{
+  let post = req.body;
+  if(post.allow){
+    db.query('UPDATE register SET allow_login=? WHERE id=?',['true',post.allow],function(err,result){
+      return res.redirect('/adminbro_user')
+    })
+  }
 })
 server.get("/adminbro_img/:id",(req,res)=>{
-  let user_id = parseInt(path.parse(req.params.id).base);
-  db.query('SELECT * FROM register WHERE id=?',[user_id],function(err,result){
-    let imgroot = result[0].student_card_root
-    return res.render('adminbro_user_img',{'imgroot':imgroot})
-  })
+  if(req.session.user_id === 0){
+    let user_id = parseInt(path.parse(req.params.id).base);
+    db.query('SELECT * FROM register WHERE id=?',[user_id],function(err,result){
+      let imgroot = result[0].student_card_root
+      return res.render('adminbro_user_img',{'imgroot':imgroot})
+    })
+    return false;
+  }
+  res.redirect('/')
 })
 server.listen(3000);

@@ -34,13 +34,28 @@
             <br>
             <br>
             <br>
-            <br>
             <div id="layoutSidenav_content">
                 <main>
+                    <button type="button" id="report" onclick="report()">신고하기</button>
+                    <div id="report_text" style="display: none;">
+                        <form action="/adminbro_report_warning/process" method="post">
+                            신고 할 아이디 : <input type="text" name="reported_id">
+                        </form>
+                    </div>
                     <%-table%>
                 </main>
             </div>
         </body>
+        <script>
+            function report(){
+                let report = document.getElementById('report')
+                let report_text = document.getElementById('report_text')
+                if(report_text.style.display === 'none'){
+                    report_text.style.display = 'block'
+                    report.style.display = 'none'
+                }
+            }
+        </script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
