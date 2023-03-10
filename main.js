@@ -202,7 +202,6 @@ server.post("/register/process",(req,res)=>{
       if(register[i].id === parseInt(post.id)){
         return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 아이디입니다'); window.location='/register'</script></html>`)
       }
-      return false;
     }
     if(9<post.id.length<=10 && post.password.length > 10){
       db.query('INSERT INTO register(name,id,password,usetrue) VALUES(?,?,?,?)',[post.name,post.id,post.password,'사용가능'],function(err,result){
@@ -296,6 +295,7 @@ server.get("/adminbro_user",(req,res)=>{
         <td>학생증</td>
         <td>학생증 확인 여부</td>
         <td>허락 여부</td>
+        <td>아이디 삭제</td>
       </tr>`
       for(let i=0; i<register.length; i++){
         table+=`
@@ -306,6 +306,7 @@ server.get("/adminbro_user",(req,res)=>{
           <td><a href="/adminbro_img/${register[i].id}">학생증 보러 가기</a></td>
           <td>${register[i].allow_login}</td>
           <td><button type="submit" name="allow" value="${register[i].id}">확인</button></td>
+          <td><button type="submit" name="delete" value="${register[i].id}">확인</button></td>
         </tr>`
       }
       table+=``
@@ -319,6 +320,10 @@ server.post("/adminbro_user/process",(req,res)=>{
   let post = req.body;
   if(post.allow){
     db.query('UPDATE register SET allow_login=? WHERE id=?',['true',post.allow],function(err,result){
+      return res.redirect('/adminbro_user')
+    })
+  }else if(post.delete){
+    db.query('DELETE FROM register WHERE id=?',[post.delete],function(err,result){
       return res.redirect('/adminbro_user')
     })
   }

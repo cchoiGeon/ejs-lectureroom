@@ -205,18 +205,14 @@ for(let i=0; i<campuslist.length; i++){
                 function(err3,result){
                   db.query('UPDATE register SET usetrue=? WHERE id=?',['사용 중',req.session.user_id],
                   function(err4,result2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('입실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }else{
-              console.log("사용 중인 강의실입니다");
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] ==='퇴실'){
@@ -225,23 +221,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor2 SET status=?, time=NOW(), past_userid=?, now_userid=? WHERE number=?`,
                 ['사용가능',req.session.user_id,null,parseInt(floor2[k].number)],
                 function(err3,result){
-                  console.log("퇴실이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용가능',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('퇴실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 })
                 return false;
               }else if(floor2[k].now_userid != req.session.user_id){
-                console.log('다른 사람이 사용하는 강의실입니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('빈 강의실이거나 퇴실 완료한 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('빈 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] === '예약'){
@@ -250,23 +241,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor2 SET status=?, time=NOW(), now_userid=? WHERE number=?`,
                 ['사용 중',req.session.user_id,parseInt(floor2[k].number)],
                 function(err3,result){
-                  console.log("예약이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용 중',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('예약이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
                 return false;
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('사용 중인 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
         }
@@ -319,18 +305,14 @@ for(let i=0; i<campuslist.length; i++){
                 function(err3,result){
                   db.query('UPDATE register SET usetrue=? WHERE id=?',['사용 중',req.session.user_id],
                   function(err4,result2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('입실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }else{
-              console.log("사용 중인 강의실입니다");
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] ==='퇴실'){
@@ -339,23 +321,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor3 SET status=?, time=NOW(), past_userid=?, now_userid=? WHERE number=?`,
                 ['사용가능',req.session.user_id,null,parseInt(floor3[k].number)],
                 function(err3,result){
-                  console.log("퇴실이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용가능',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('퇴실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 })
                 return false;
               }else if(floor3[k].now_userid != req.session.user_id){
-                console.log('다른 사람이 사용하는 강의실입니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('빈 강의실이거나 퇴실 완료한 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('빈 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] === '예약'){
@@ -364,23 +341,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor3 SET status=?, time=NOW(), now_userid=? WHERE number=?`,
                 ['사용 중',req.session.user_id,parseInt(floor3[k].number)],
                 function(err3,result){
-                  console.log("예약이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용 중',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('예약이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
                 return false;
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('사용 중인 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
         }
@@ -433,17 +405,14 @@ for(let i=0; i<campuslist.length; i++){
                 function(err3,result){
                   db.query('UPDATE register SET usetrue=? WHERE id=?',['사용 중',req.session.user_id],
                   function(err4,result2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('입실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }else{
-              console.log("사용 중인 강의실입니다");
-              res.redirect(`/select/${campuslist[i]}`);
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               return false;
             }
           }
@@ -453,23 +422,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor4 SET status=?, time=NOW(), past_userid=?, now_userid=? WHERE number=?`,
                 ['사용가능',req.session.user_id,null,parseInt(floor4[k].number)],
                 function(err3,result){
-                  console.log("퇴실이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용가능',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('퇴실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 })
                 return false;
               }else if(floor4[k].now_userid != req.session.user_id){
-                console.log('다른 사람이 사용하는 강의실입니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('빈 강의실이거나 퇴실 완료한 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('빈 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] === '예약'){
@@ -478,23 +442,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor4 SET status=?, time=NOW(), now_userid=? WHERE number=?`,
                 ['사용 중',req.session.user_id,parseInt(floor4[k].number)],
                 function(err3,result){
-                  console.log("예약이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용 중',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('예약이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
                 return false;
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('사용 중인 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
         }
@@ -547,18 +506,14 @@ for(let i=0; i<campuslist.length; i++){
                 function(err3,result){
                   db.query('UPDATE register SET usetrue=? WHERE id=?',['사용 중',req.session.user_id],
                   function(err4,result2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('입실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }else{
-              console.log("사용 중인 강의실입니다");
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] ==='퇴실'){
@@ -567,23 +522,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor5 SET status=?, time=NOW(), past_userid=?, now_userid=? WHERE number=?`,
                 ['사용가능',req.session.user_id,null,parseInt(floor5[k].number)],
                 function(err3,result){
-                  console.log("퇴실이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용가능',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('퇴실이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 })
                 return false;
               }else if(floor5[k].now_userid != req.session.user_id){
-                console.log('다른 사람이 사용하는 강의실입니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('빈 강의실이거나 퇴실 완료한 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('빈 강의실입니다'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
           else if(list[k] === '예약'){
@@ -592,23 +542,18 @@ for(let i=0; i<campuslist.length; i++){
                 db.query(`UPDATE ${campuslist[i]}floor5 SET status=?, time=NOW(), now_userid=? WHERE number=?`,
                 ['사용 중',req.session.user_id,parseInt(floor5[k].number)],
                 function(err3,result){
-                  console.log("예약이 완료되셨습니다");
                   db.query('UPDATE register SET usetrue=? WHERE id=?',
                   ['사용 중',req.session.user_id],function(err4,register2){
-                    res.write(`<script>alert('SUCCESS!')</script>`);
-                    return res.write(`<script>window.location='/select/${campuslist[i]}'</script>`);
+                    return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('예약이 완료 되셨습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
                   });
                 });
                 return false;
               }else if(register[0].id === req.session.user_id && register[0].usetrue === '사용 중'){
-                console.log('사용중인 강의실이 있습니다');
-                return res.redirect(`/select/${campuslist[i]}`);
+                return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실이 있습니다'); window.location='/select/${campuslist[i]}'</script></html>`);
               }
             }
             else{
-              console.log('사용 중인 강의실입니다.')
-              res.redirect(`/select/${campuslist[i]}`);
-              return false;
+              return res.write(`<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><script>alert('사용 중인 강의실입니다.'); window.location='/select/${campuslist[i]}'</script></html>`);
             }
           }
         }
